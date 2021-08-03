@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TestApi.BE;
 using TestApi.BL;
 
 namespace WebApiTest.Controllers
@@ -17,9 +18,9 @@ namespace WebApiTest.Controllers
         }
 
         // GET api/Student/5
-        public object Get(int id)
+        public IEnumerable<StudentBE> Get(int id)
         {
-            object res = "value";
+            IEnumerable<StudentBE> res = null;
             StudentBL studentBL = new StudentBL();
             switch (id)
             {
