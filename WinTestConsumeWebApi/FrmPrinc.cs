@@ -46,9 +46,10 @@ namespace WinTestConsumeWebApi
                     postTask.Wait();
 
                     var result = postTask.Result;
+                    
                     if (result.IsSuccessStatusCode)
                     {
-                        txtOutput.Text = result.Content.ToString();
+                        txtOutput.Text = result.ToString() ;
                     }
                 }
             }
