@@ -34,8 +34,15 @@ namespace WebApiTest.Controllers
         }
 
         // POST api/Student
-        public void Post([FromBody] string value)
+        public ResponseMyApi Post([FromBody]  StudentBE student)
         {
+            ResponseMyApi res = new ResponseMyApi();
+
+            res.Status = 0;
+            res.DescRespuesta = "Respuesta " + student.Codigo.ToString() + " - " +
+                                 student.Nombre;
+
+            return res;
         }
 
         // PUT api/Student/5

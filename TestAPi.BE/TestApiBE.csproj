@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ResponseMyApi.cs" />
     <Compile Include="StudentBE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
