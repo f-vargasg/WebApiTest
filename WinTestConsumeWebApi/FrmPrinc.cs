@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -26,32 +27,41 @@ namespace WinTestConsumeWebApi
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
+        private void CallWithHttpClientAsync()
+        {
+            StudentBE student = new StudentBE
+            {
+                Codigo = 1,
+                Nombre = "stud1"
+            };
+
+            using (var client = new HttpClient())
+            {
+                var url = ConfigurationManager.AppSettings["urlConn"];
+                client.BaseAddress = new Uri(url);
+                //HTTP POST
+                var postTask = client.PostAsJsonAsync<StudentBE>("student", student);
+                postTask.Wait();
+
+                var result = postTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    // var jsonPuro = result.Content.ToString();
+                    string jsonPuro = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    txtOutput.Text = jsonPuro;
+                    // var objStudent = JsonConvert.DeserializeObject<ResponseMyApi>(jsonPuro);
+                    // txtOutput.Text += Environment.NewLine + objStudent.ToString();
+                    // txtOutput.Text += Environment.NewLine + objStudent.ToString();
+                }
+            }
+        }
+
         private void ButDo_Click(object sender, EventArgs e)
         {
             try
             {
-                StudentBE student = new StudentBE
-                {
-                    Codigo = 1,
-                    Nombre = "stud1"
-                };
-
-                using (var client = new HttpClient())
-                {
-                    var url = ConfigurationManager.AppSettings["urlConn"];
-                    client.BaseAddress = new Uri(url);
-
-                    //HTTP POST
-                    var postTask = client.PostAsJsonAsync<StudentBE>("student", student);
-                    postTask.Wait();
-
-                    var result = postTask.Result;
-                    
-                    if (result.IsSuccessStatusCode)
-                    {
-                        txtOutput.Text = result.ToString() ;
-                    }
-                }
+                CallWithHttpClientAsync();
             }
             catch (Exception ex)
             {

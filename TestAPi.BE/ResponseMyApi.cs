@@ -10,5 +10,11 @@ namespace TestApi.BE
     {
         public int Status { get; set; }
         public string DescRespuesta { get; set; }
+
+
+        public override string ToString()
+        {
+            return "{ Status => " + this.Status.ToString() + " - DescRespuesta => " + this.DescRespuesta + "}"; 
+        }
     }
 }
