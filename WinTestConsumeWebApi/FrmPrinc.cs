@@ -48,11 +48,14 @@ namespace WinTestConsumeWebApi
                 if (result.IsSuccessStatusCode)
                 {
                     // var jsonPuro = result.Content.ToString();
-                    string jsonPuro = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    txtOutput.Text = jsonPuro;
-                    // var objStudent = JsonConvert.DeserializeObject<ResponseMyApi>(jsonPuro);
-                    // txtOutput.Text += Environment.NewLine + objStudent.ToString();
-                    // txtOutput.Text += Environment.NewLine + objStudent.ToString();
+                    // el siguiente codigo ejecuta sincronicamente 
+                    // string jsonPuro = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    var jsonPuro = result.Content.ReadAsStringAsync();
+                    jsonPuro.Wait();
+                    txtOutput.Text = jsonPuro.Result;
+                    var responseMyApi = JsonConvert.DeserializeObject<ResponseMyApi>(jsonPuro.Result);
+                    txtOutput.Text += Environment.NewLine + responseMyApi.ToString();
+                    
                 }
             }
         }
