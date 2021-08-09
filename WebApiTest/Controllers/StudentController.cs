@@ -39,8 +39,7 @@ namespace WebApiTest.Controllers
             ResponseMyApi res = new ResponseMyApi();
 
             res.Status = 0;
-            res.DescRespuesta = "Respuesta " + student.Codigo.ToString() + " - " +
-                                 student.Nombre;
+            res.DescRespuesta = student.ToString();
 
             return res;
         }
