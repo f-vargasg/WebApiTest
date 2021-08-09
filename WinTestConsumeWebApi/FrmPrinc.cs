@@ -52,7 +52,7 @@ namespace WinTestConsumeWebApi
                     // string jsonPuro = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                     var jsonPuro = result.Content.ReadAsStringAsync();
                     jsonPuro.Wait();
-                    txtOutput.Text = jsonPuro.Result;
+                    //txtOutput.Text = jsonPuro.Result;
                     var responseMyApi = JsonConvert.DeserializeObject<ResponseMyApi>(jsonPuro.Result);
                     txtOutput.Text += Environment.NewLine + responseMyApi.ToString();
                     
